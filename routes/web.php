@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'HomeController@index')->name('home');
+
 
 //Rotte per Autenticazione
 Auth::routes();
@@ -31,3 +32,6 @@ Route::middleware('auth')
         Route::resource('posts', 'PostController');
 
 });
+
+// DEVE ESSERE MESSA PER ULTIMA
+Route::get('{any?}', 'HomeController@index')->where('any', '.*')->name('home');
