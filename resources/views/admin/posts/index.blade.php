@@ -17,6 +17,7 @@
                     <th>Id</th>
                     <th>Titolo</th>
                     <th>Slug</th>
+                    <th>Categoria</th>
                     <th colspan="3">Azioni</th>
                 </tr>
             </thead>
@@ -27,13 +28,18 @@
                         <td>{{ $item->title }}</td>
                         <td>{{ $item->slug }}</td>
                         <td>
+                            @if ($item->category)
+                                {{ $item->category->name }}
+                            @endif
+                        </td>
+                        <td>
                             <a class="btn btn-success" href="{{ route('admin.posts.show', $item->id) }}">SHOW</a>
                         </td>
                         <td>
                             <a class="btn btn-primary" href="{{ route('admin.posts.edit', $item->id) }}">EDIT</a>
                         </td>
                         <td>
-                            <form action="{{ route('admin.posts.destroy', $item->id) }}" onSubmit="return confirm (Sei sicuro della rua scelta?)">
+                            <form action="{{ route('admin.posts.destroy', $item->id) }}" method="POST" onSubmit="return confirm('Sei sicuro di voler eliminare questo articolo?')">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger">DELETE</button>
